@@ -19,10 +19,12 @@ class window.AppView extends Backbone.View
       @$('.hit-button').attr 'disabled', true
       @$('.stand-button').attr 'disabled', true
 
-    @model.get('playerHand').on 'playerWins', =>
+    @model.get('playerHand').on 'pwin', =>
       @$('.hit-button').attr 'disabled', true
       @$('.stand-button').attr 'disabled', true
-      @$('#bust').append ' BlackJack. You win!'
+      setTimeout ->
+        @$('#bust').append ' BlackJack. You win!'
+      , 5
 
     @model.get('dealerHand').on 'done', =>
       @$('.hit-button').attr 'disabled', true
