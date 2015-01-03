@@ -19,10 +19,19 @@ class window.AppView extends Backbone.View
       @$('.hit-button').attr 'disabled', true
       @$('.stand-button').attr 'disabled', true
 
+    @model.get('playerHand').on 'playerWins', =>
+      @$('.hit-button').attr 'disabled', true
+      @$('.stand-button').attr 'disabled', true
+      @$('#bust').append ' BlackJack. You win!'
+
     @model.get('dealerHand').on 'done', =>
       @$('.hit-button').attr 'disabled', true
       @$('.stand-button').attr 'disabled', true
-
+      playerScore = @$('.player-hand-container').find('.score').text()
+      dealerScore = @$('.dealer-hand-container').find('.score').text()
+      if dealerScore > 21 then @$('#bust').append ' You win!'
+      else if playerScore > dealerScore then @$('#bust').append ' You win!'
+      else @$('#bust').append "You Lose!"
     @render()
 
   render: ->

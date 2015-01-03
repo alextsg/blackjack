@@ -2,10 +2,17 @@ class window.Hand extends Backbone.Collection
   model: Card
 
   initialize: (array, @deck, @isDealer) ->
+    #console.log @
+    #console.log array[0].get('value') + array[1].get('value')
+    if !@isDealer and @length == 2
+     @trigger('playerWins')
+     console.log 'blackjack'
+    @check()
 
   hit: ->
-    if @length < 5 then @add(@deck.pop()) else alert 'You can\'t hit that'
+    @add(@deck.pop())
     @check()
+
     return @models[@length-1]
 
   stand: ->
@@ -22,7 +29,10 @@ class window.Hand extends Backbone.Collection
   , 0
 
   check: ->
+    console.log @scores()
     if @scores()[0] > 21 and @scores()[1] > 21 then @trigger('bust')
+    else if @scores()[0] == 21 and @length == 2 then @trigger('playerWins')
+
 
   scores: ->
     # The scores are an array of potential scores.

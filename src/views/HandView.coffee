@@ -21,7 +21,6 @@ class window.HandView extends Backbone.View
     score = @collection.scores()
     min = Math.min score[0], score[1]
     max = Math.max score[0], score[1]
-    console.log min, max
     if score[0] <= 21 && score[1] <= 21
       @$('.score').text max
     if score[0] <= 21 && score[1] > 21
