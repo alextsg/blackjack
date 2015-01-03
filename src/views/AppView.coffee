@@ -11,11 +11,15 @@ class window.AppView extends Backbone.View
 
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
-    'click .stand-button': -> @model.get('playerHand').stand()
+    'click .stand-button': -> @model.get('dealerHand').stand(@model.get('playerHand'))
     'click .newgame-button': -> window.location.reload true
 
   initialize: ->
     @model.get('playerHand').on 'bust', =>
+      @$('.hit-button').attr 'disabled', true
+      @$('.stand-button').attr 'disabled', true
+
+    @model.get('dealerHand').on 'done', =>
       @$('.hit-button').attr 'disabled', true
       @$('.stand-button').attr 'disabled', true
 
